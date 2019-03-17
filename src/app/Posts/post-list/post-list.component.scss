@@ -25,8 +25,7 @@ mat-paginator {
 }
 
 .filter {
-  margin-left: 10px;
-  margin-right: 6px;
+  margin: 10px;
   font-weight: bold;
   background-color: inherit;
 }
@@ -36,11 +35,48 @@ select {
 }
 
 h5 {
-  font-weight: 400;
+  font-weight: 500;
   font-size: 110%;
+  text-align: center;
+  letter-spacing: 2px;
 }
 
 li {
   list-style: none;
   text-align: left;
 }
+
+.default-col {
+  text-align: center;
+}
+
+.bold-col {
+  font-weight: 500;
+  font-size: 110%;
+}
+
+.count-col,
+.bidQuantity-col,
+.askQuantity-col
+ {
+  text-align: right;
+}
+
+.totals-col {
+  border-top: solid 2px #777;
+}
+
+.summary-grid {
+  display: grid;
+  margin-top: 8px;
+  grid-column-gap: 2px;
+  grid-template-columns: repeat(2, 1fr) repeat(2, 2fr);
+}
+
+
+.list-grid {
+  display: grid;
+  margin-top: 8px;
+  grid-template-columns: repeat(2, 1fr) repeat(4, 2fr) 1fr;
+}
+

@@ -2,60 +2,68 @@
 <mat-accordion>
   <mat-expansion-panel>
     <mat-expansion-panel-header>
-      Summary Totals
+      Summary
     </mat-expansion-panel-header>
     <div>
-        <h5>Distinct CCY Pairs</h5>
-        <ul *ngFor="let ccyPair of ccyPairs">
-            <li>{{ ccyPair.symbol}} |
-                {{ ccyPair.count | number }} |
-                {{ ccyPair.bidQuantity | currency: 'USD' : 'symbol' : '1.0'  }} |
-                {{ ccyPair.askQuantity | currency: 'USD' : 'symbol' : '1.0' }}
-            </li>
-        </ul>
+        <h5>Distinct CCY Pairs Totals</h5>
+        <div class="summary-grid">
+          <div class="default-col bold-col">Symbol</div>
+          <div class="default-col bold-col">Count</div>
+          <div class="default-col bold-col">Bid Quantity</div>
+          <div class="default-col bold-col">Ask Quantity</div>
+        </div>
+         <div class="summary-grid" *ngFor="let ccyPair of ccyPairs">
+            <div class="default-col">{{ ccyPair.symbol}}</div>
+            <div class="count-col">{{ ccyPair.count | number }}</div>
+            <div class="bidQuantity-col">{{ ccyPair.bidQuantity | currency: 'USD' : 'symbol' : '1.0' }}</div>
+            <div class="askQuantity-col">{{ ccyPair.askQuantity | currency: 'USD' : 'symbol' : '1.0' }}</div>
+        </div>
+        <div class="summary-grid">
+            <div class="default-col totals-col bold-col">{{ccyPairs.length}}</div>
+            <div class="count-col totals-col bold-col">{{ccyPairsCounts | number}}</div>
+            <div class="count-col totals-col bold-col">{{ ccyPairsBidQuantityTotals | currency: 'USD' : 'symbol' : '1.0' }}</div>
+            <div class="count-col totals-col bold-col">{{ ccyPairsAskQuantityTotals | currency: 'USD' : 'symbol' : '1.0' }}</div>
+        </div>
     </div>
   </mat-expansion-panel>
 </mat-accordion>
-<mat-accordion multi="true" *ngIf="posts.length > 0 && !isLoading">
+<mat-accordion>
   <mat-expansion-panel>
     <mat-expansion-panel-header>
-      Order List
+      List
     </mat-expansion-panel-header>
-    <div>
-        <span class="filter">Filter CCY Pairs</span>
-        <select (change)="filterOnItem($event.target.value)" >
-            <option value="">-- Select CCY Pair --</option>
-            <option *ngFor="let ccyPair of ccyPairs">{{ccyPair.symbol}}</option>
-        </select>
+  <div>
+    <span class="filter">Filter CCY Pairs</span>
+      <select (change)="filterOnItem($event.target.value)" >
+        <option value="">-- Select CCY Pair --</option>
+        <option *ngFor="let ccyPair of ccyPairs">{{ccyPair.symbol}}</option>
+      </select>
+  </div>
+  <div class="list-grid">
+    <div class="default-col bold-col">Symbol</div>
+      <div class="default-col bold-col">LP</div>
+      <div class="default-col bold-col">Bid Price</div>
+      <div class="default-col bold-col">Bid Quantity</div>
+      <div class="default-col bold-col">Ask Price</div>
+      <div class="default-col bold-col">Ask Quantity</div>
+      <div class="default-col bold-col">Id</div>
     </div>
-  </mat-expansion-panel>
-  <mat-expansion-panel *ngFor="let post of posts">
-    <mat-expansion-panel-header>
-      {{ post.symbol }} |
-      {{ post.lp }} |
-      {{ post.bidPrice | number : '2.5-5' }} |
-      {{ post.bidQuantity | currency: 'USD' : 'symbol' : '1.0' }} |
-      {{ post.askPrice | number : '2.5-5' }} |
-      {{ post.askQuantity| currency: 'USD' : 'symbol' : '1.0' }} |
-      {{ post.id }}
-    </mat-expansion-panel-header>
-    <p><span>Symbol: </span> {{ post.symbol }}</p>
-    <p><span>LP: </span>{{ post.lp }}</p>
-    <p><span>Bid Px: </span>{{ post.bidPrice | number : '2.5-5' }}</p>
-    <p><span>Bid Qty: </span>{{ post.bidQuantity| currency: 'USD' : 'symbol' : '1.0' }}</p>
-    <p><span>Ask Px: </span>{{ post.askPrice | number : '2.5-5' }}</p>
-    <p><span>Ask Qty: </span>{{ post.askQuantity | currency: 'USD' : 'symbol' : '1.0' }}</p>
-    <p><span>Timestamp: </span>{{ post.timeStamp }}</p>
-    <p><span>ID: </span>{{ post.id }}</p>
-
+    <div class="list-grid"  *ngFor="let post of posts" >
+      <div class="default-col">{{ post.symbol}}</div>
+      <div class="default-col">{{ post.lp }}</div>
+      <div class="bidQuantity-col">{{ post.bidPrice | number : '2.5-5' }}</div>
+      <div class="bidQuantity-col">{{ post.bidQuantity | currency: 'USD' : 'symbol' : '1.0' }}</div>
+      <div class="askQuantity-col">{{ post.askPrice | number : '2.5-5' }}</div>
+      <div class="askQuantity-col">{{ post.askQuantity| currency: 'USD' : 'symbol' : '1.0' }}</div>
+      <div class="default-col">{{ post.id }}</div>
+    </div>
+    <mat-paginator [length]="totalPosts"
+                   [pageIndex]="pageIndex"
+                   [length]="length"
+                   [pageSize]="postsPerPage"
+                   [pageSizeOptions]="pageSizeOptions"
+                   (page)="onChangedPage($event)"
+                   *ngIf="posts.length > 0"></mat-paginator>
   </mat-expansion-panel>
 </mat-accordion>
-
-<mat-paginator [length]="totalPosts"
-               [pageIndex]="pageIndex"
-               [length]="length"
-               [pageSize]="postsPerPage"
-               [pageSizeOptions]="pageSizeOptions"
-               (page)="onChangedPage($event)"
-  *ngIf="posts.length > 0"></mat-paginator>
 <p class="info-text mat-body-1" *ngIf="posts.length <= 0 && !isLoading">No quotes available!</p>

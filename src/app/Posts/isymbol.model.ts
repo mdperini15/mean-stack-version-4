@@ -5,3 +5,10 @@ export interface ISymbol {
   bidQuantity: number;
   askQuantity: number;
 }
+
+export interface ISymbolTotals {
+  symbol: number;
+  count: number;
+  bidQuantity: number;
+  askQuantity: number;
+}
