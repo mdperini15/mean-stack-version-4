@@ -1,0 +1,61 @@
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      Summary Totals
+    </mat-expansion-panel-header>
+    <div>
+        <h5>Distinct CCY Pairs</h5>
+        <ul *ngFor="let ccyPair of ccyPairs">
+            <li>{{ ccyPair.symbol}} |
+                {{ ccyPair.count | number }} |
+                {{ ccyPair.bidQuantity | currency: 'USD' : 'symbol' : '1.0'  }} |
+                {{ ccyPair.askQuantity | currency: 'USD' : 'symbol' : '1.0' }}
+            </li>
+        </ul>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>
+<mat-accordion multi="true" *ngIf="posts.length > 0 && !isLoading">
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      Order List
+    </mat-expansion-panel-header>
+    <div>
+        <span class="filter">Filter CCY Pairs</span>
+        <select (change)="filterOnItem($event.target.value)" >
+            <option value="">-- Select CCY Pair --</option>
+            <option *ngFor="let ccyPair of ccyPairs">{{ccyPair.symbol}}</option>
+        </select>
+    </div>
+  </mat-expansion-panel>
+  <mat-expansion-panel *ngFor="let post of posts">
+    <mat-expansion-panel-header>
+      {{ post.symbol }} |
+      {{ post.lp }} |
+      {{ post.bidPrice | number : '2.5-5' }} |
+      {{ post.bidQuantity | currency: 'USD' : 'symbol' : '1.0' }} |
+      {{ post.askPrice | number : '2.5-5' }} |
+      {{ post.askQuantity| currency: 'USD' : 'symbol' : '1.0' }} |
+      {{ post.id }}
+    </mat-expansion-panel-header>
+    <p><span>Symbol: </span> {{ post.symbol }}</p>
+    <p><span>LP: </span>{{ post.lp }}</p>
+    <p><span>Bid Px: </span>{{ post.bidPrice | number : '2.5-5' }}</p>
+    <p><span>Bid Qty: </span>{{ post.bidQuantity| currency: 'USD' : 'symbol' : '1.0' }}</p>
+    <p><span>Ask Px: </span>{{ post.askPrice | number : '2.5-5' }}</p>
+    <p><span>Ask Qty: </span>{{ post.askQuantity | currency: 'USD' : 'symbol' : '1.0' }}</p>
+    <p><span>Timestamp: </span>{{ post.timeStamp }}</p>
+    <p><span>ID: </span>{{ post.id }}</p>
+
+  </mat-expansion-panel>
+</mat-accordion>
+
+<mat-paginator [length]="totalPosts"
+               [pageIndex]="pageIndex"
+               [length]="length"
+               [pageSize]="postsPerPage"
+               [pageSizeOptions]="pageSizeOptions"
+               (page)="onChangedPage($event)"
+  *ngIf="posts.length > 0"></mat-paginator>
+<p class="info-text mat-body-1" *ngIf="posts.length <= 0 && !isLoading">No quotes available!</p>
