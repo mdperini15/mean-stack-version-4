@@ -134,7 +134,7 @@ csv.fromPath(".\\backend\\data\\adata.csv")
     savedOrders.push(newOrder);
 })
 .on("end", function(){
-    console.log(`done posts${savedOrders.length}`);
+    console.log(`done orders ${savedOrders.length}`);
 
   loadSymbols();
 });

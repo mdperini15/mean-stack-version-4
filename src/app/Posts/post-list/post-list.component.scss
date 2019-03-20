@@ -4,7 +4,9 @@
 }
 
 mat-spinner {
-  margin: auto;
+  position: absolute;
+  top: 40%;
+  left: 50%;
 }
 
 mat-paginator {
@@ -73,10 +75,14 @@ li {
   grid-template-columns: repeat(2, 1fr) repeat(2, 2fr);
 }
 
-
 .list-grid {
   display: grid;
   margin-top: 8px;
   grid-template-columns: repeat(2, 1fr) repeat(4, 2fr) 1fr;
+}
+
+.plotly-chart {
+  height: 100%;
+  width: 100%;
 }
 

@@ -1,4 +1,3 @@
-<mat-spinner *ngIf="isLoading"></mat-spinner>
 <mat-accordion>
   <mat-expansion-panel>
     <mat-expansion-panel-header>
@@ -17,7 +16,7 @@
             <div class="count-col">{{ ccyPair.count | number }}</div>
             <div class="bidQuantity-col">{{ ccyPair.bidQuantity | currency: 'USD' : 'symbol' : '1.0' }}</div>
             <div class="askQuantity-col">{{ ccyPair.askQuantity | currency: 'USD' : 'symbol' : '1.0' }}</div>
-        </div>
+       </div>
         <div class="summary-grid">
             <div class="default-col totals-col bold-col">{{ccyPairs.length}}</div>
             <div class="count-col totals-col bold-col">{{ccyPairsCounts | number}}</div>
@@ -66,4 +65,14 @@
                    *ngIf="posts.length > 0"></mat-paginator>
   </mat-expansion-panel>
 </mat-accordion>
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      Chart
+    </mat-expansion-panel-header>
+      <div id="scatterChart" class="plotly-chart"></div>
+  </mat-expansion-panel>
+</mat-accordion>
+<mat-spinner class="matSpinner" *ngIf="isLoading"></mat-spinner>
 <p class="info-text mat-body-1" *ngIf="posts.length <= 0 && !isLoading">No quotes available!</p>
+
